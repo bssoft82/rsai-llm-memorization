@@ -17,3 +17,8 @@ def add_rsai_log(s):
         print(s)
     logging.info(s)
 
+def add_rsai_error(s):
+    if config.get_print_to_console():
+        print(s)
+    logging.error(s)
+

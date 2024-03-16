@@ -8,7 +8,9 @@ from presidio_anonymizer import AnonymizerEngine
 import os
 
 from adversarial import get_adversarial_prompt
+from anonymization_handler import get_anonymized_text
 from data_handler import load_data
+from faker_handler import get_faked_text
 from inference_handler import get_inference
 from pii_handler import get_pii_info
 from rsai_logging import add_rsai_log, initlogging
@@ -34,6 +36,7 @@ df_messages = load_data(Config.input_data)
 
 for idx, message in df_messages.iterrows():
      message_text = message['message_text']
+     original_prompt = [{"role": "user", "content": message_text}]
      human_pii_info = message['pii_info']
      add_rsai_log(f'Message Text: {message_text} \n Human PII Info: {human_pii_info}')
      
@@ -41,38 +44,45 @@ for idx, message in df_messages.iterrows():
      pii_info = get_pii_info (message_text)
      
      # Get Adversarial Prompt
-     adversarial_prompt = get_adversarial_prompt (message_text, human_pii_info)
+     adversarial_prompt = get_adversarial_prompt(message_text, human_pii_info)
+
+     # Get Anonymized Prompt
+     #anonymized_prompt = [{"role": "user", "content": get_anonymized_text (message_text, pii_info)}]
+     anonymized_prompt = get_adversarial_prompt (get_anonymized_text (message_text, pii_info), human_pii_info)
+
+     # Get Faked Data Prompt
+     #faked_data_prompt = [{"role": "user", "content": get_faked_text (message_text, pii_info)}]
+     faked_data_prompt = get_adversarial_prompt (get_faked_text (message_text, pii_info), human_pii_info)
      
      # Set the models list
      models = ["gpt-3.5-turbo-16k-0613", "gpt-4"]
-     df_output = pd.concat([df_output, pd.DataFrame([{'original_message': message_text,
-                    'adversarial_message': adversarial_prompt,
-                    'pii_info': human_pii_info,
-                    'gpt-3.5-turbo-16k-0613_output': '',
-                    'gpt-4_output': ''}])], ignore_index=True)
+     df_output = pd.concat([df_output, 
+                            pd.DataFrame([{
+                                'original_message': message_text,
+                                'human_pii_info': human_pii_info,
+                                'automated_pii_info': pii_info,
+                                'adversarial_message': adversarial_prompt,
+                                'anonymized_message': anonymized_prompt,
+                                'faked_data_message': faked_data_prompt,
+                                'org_gpt-3.5-turbo-16k-0613_output': '',
+                                'org_gpt-4_output': '',
+                                'adv_gpt-3.5-turbo-16k-0613_output': '',
+                                'adv_gpt-4_output': '',
+                                'anonymized_gpt-3.5-turbo-16k-0613_output': '',
+                                'anonymized_gpt-4_output': '',
+                                'faked_gpt-3.5-turbo-16k-0613_output': '',
+                                'faked_gpt-4_output': '',
+                        }])
+                    ], ignore_index=True)
      
+     output_types = ['org', 'adv', 'anonymized', 'faked']
+     messages = [original_prompt, adversarial_prompt, anonymized_prompt, faked_data_prompt]
      for model in models:
-        response = get_inference(client, model, adversarial_prompt)
-        #response = 'Test_Fmwk'
-        df_output.at[df_output.index[-1], f'{model}_output'] = response
-        add_rsai_log (f'model: {model} \n response: {response}')
+        for i in range(len(output_types)):
+                #response = 'Exception_Test_Fmwk_output'
+                response = get_inference(client, model, messages[i])
+                df_output.at[df_output.index[-1], f'{output_types[i]}_{model}_output'] = response
+                add_rsai_log (f'{output_types[i]}_message: {messages[i]} \n model: {model} \n response: {response}')
 
 df_output.to_csv (csvfile, index = False, header = False)
-
-# seed_val = 42
-# run_gpt = False
-# if run_gpt:
-#     OUTPUT_FILE_CSV = './output/model_output.csv'
-#     with open(OUTPUT_FILE_CSV, 'a', newline='') as csvfile:
-#         for msg in messages:
-#             add_rsai_log("_"*25)
-#             add_rsai_log (f'prompt: {msg}')
-#             timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-#             for model in models:
-#                 random.seed(seed_val)
-#                 response = get_inference(model, msg)
-#                 add_rsai_log (f'model: {model} \n response: {response}')
-#                 spamwriter = csv.writer(csvfile, delimiter=',')
-#                 spamwriter.writerow([timestamp, msg, model, response.content])
-
-
+csvfile.close()

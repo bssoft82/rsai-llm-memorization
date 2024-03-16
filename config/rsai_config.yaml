@@ -3,12 +3,12 @@ seed: 42
 
 #Open AI config
 open_ai:
-  api_key: "<your_open_ai_api_key_here>"
+  api_key: "your_open_ai_api_key_here"
 
 #Logging config
 logging:
   log_file: logs/rsai_logs.log
-  print_to_console: False
+  print_to_console: True
 
 # Input config
 input:
@@ -16,7 +16,7 @@ input:
 #Output config
 output:
   model_output_csv: output/rsai_output.csv
-  output_columns: ['original_message', adversarial_message', 'pii_info', 'gpt-3.5-turbo-16k-0613_output','gpt-4_output']
+  output_columns: ['original_message', 'human_pii_info', 'automated_pii_info', 'adversarial_message', 'anonymized_message', 'faked_data_message', 'org_gpt-3.5-turbo-16k-0613_output', 'org_gpt-4_output', 'adv_gpt-3.5-turbo-16k-0613_output', 'adv_gpt-4_output', 'anonymized_gpt-3.5-turbo-16k-0613_output', 'anonymized_gpt-4_output', 'faked_gpt-3.5-turbo-16k-0613_output', 'faked_gpt-4_output']
 
 
 

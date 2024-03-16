@@ -2,6 +2,8 @@ from rsai_logging import add_rsai_log
 
 
 def get_inference(client, model, messages):
+    # if not isinstance(messages, list):
+    #     messages_list = [messages]
     response = client.chat.completions.create(
         model=model,
         messages=messages,

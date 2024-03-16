@@ -2,3 +2,4 @@ openai >= 1.14.1
 pandas >= 2.2.1
 presidio_analyzer >= 2.2.353
 presidio_anonymizer >= 2.2.353
+faker >= 24.2.0 
