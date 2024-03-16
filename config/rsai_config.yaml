@@ -1,0 +1,25 @@
+#Global config
+seed: 42
+
+#Open AI config
+open_ai:
+  #api_key: "<your_open_ai_api_key_here>"
+
+#Logging config
+logging:
+  log_file: logs/rsai_logs.log
+  print_to_console: False
+
+# Input config
+input:
+  model_input_csv: data/rsai_input.csv
+#Output config
+output:
+  model_output_csv: output/rsai_output.csv
+  output_columns: ['original_message', adversarial_message', 'pii_info', 'gpt-3.5-turbo-16k-0613_output','gpt-4_output']
+
+
+
+
+
+
