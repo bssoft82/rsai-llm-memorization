@@ -20,7 +20,8 @@ class Config:
             Config.log_file = cfg['logging']['log_file']
             Config.print_to_console = cfg['logging']['print_to_console']
 
-            Config.input_data = cfg['input']['model_input_csv']
+            Config.input_data = cfg['input']['test_input_csv']
+            Config.confessions_data = cfg['input']['confession_input_csv']
             
             Config.model_output_csv = cfg['output']['model_output_csv']
             Config.output_columns = cfg['output']['output_columns']

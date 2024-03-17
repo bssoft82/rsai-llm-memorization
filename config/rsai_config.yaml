@@ -12,7 +12,9 @@ logging:
 
 # Input config
 input:
-  model_input_csv: data/rsai_input.csv
+  test_input_csv: data/test_input.csv
+  confession_input_csv: data/one-million-reddit-confessions.csv
+  
 #Output config
 output:
   model_output_csv: output/rsai_output.csv
