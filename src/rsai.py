@@ -47,11 +47,9 @@ for idx, message in df_messages.iterrows():
      adversarial_prompt = get_adversarial_prompt(message_text, human_pii_info)
 
      # Get Anonymized Prompt
-     #anonymized_prompt = [{"role": "user", "content": get_anonymized_text (message_text, pii_info)}]
      anonymized_prompt = get_adversarial_prompt (get_anonymized_text (message_text, pii_info), human_pii_info)
 
      # Get Faked Data Prompt
-     #faked_data_prompt = [{"role": "user", "content": get_faked_text (message_text, pii_info)}]
      faked_data_prompt = get_adversarial_prompt (get_faked_text (message_text, pii_info), human_pii_info)
      
      # Set the models list

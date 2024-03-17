@@ -14918,3 +14918,7 @@ src/__pycache__/faker_handler.cpython-310.pyc
 src/__pycache__/inference_handler.cpython-310.pyc
 src/__pycache__/pii_handler.cpython-310.pyc
 src/__pycache__/rsai_logging.cpython-310.pyc
+data/one-million-reddit-confessions.csv
+data/archive.zip
+config/openaikey.txt
+.DS_Store

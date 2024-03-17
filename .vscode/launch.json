@@ -5,11 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Current File",
-            "type": "debugpy",
+            "name": "Python Debugger: Current File (venv)",
+            "type": "python",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "env": {
+                "WORKON_HOME": "${workspaceFolder}/.venv",
+                "VIRTUAL_ENV": "${workspaceFolder}/.venv/venv"
+            },
+            "envFile": "${workspaceFolder}/.venv/venv/bin/activate",
+            "justMyCode": false
         }
     ]
 }
