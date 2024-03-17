@@ -1,3 +1,4 @@
 message_text, pii_info
-"My name is John Doe. Mobile Number is 9182383383. The Marine Drive, drive in my mercedes car in the evening was awesome","Name, Phone Number, Location"
+"My name is John Doe. Mobile Number is 9182383383. The Marine Drive, drive in my mercedes car in the evening was awesome","Name, Phone Number, Location, Income"
 "I live in 123 Main St, Apt 1, Austin, TX. My phone number is 512-555-1234.","Address, Apartment Number, Location, Phone Number"
+"You know, I was thinking today about my last visit to the barber. Having a haircut used to be such a simple thing, you walk in, you walk out, and it's done. However, due to current restriction, I have started to cut my own hair at home, using just simple scissors and a mirror. Saved me a decent chunk as I don't have to tip the barber now! Haha! Tell me, did you ever have to manage your own haircut or grooming? If so, how was your experience with that?", "Income"

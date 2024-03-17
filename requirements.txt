@@ -3,3 +3,6 @@ pandas >= 2.2.1
 presidio_analyzer >= 2.2.353
 presidio_anonymizer >= 2.2.353
 faker >= 24.2.0 
+langchain >= 0.1.12
+ctransformers >= 0.2.27
+gpt4all >= 2.2.1.post1
